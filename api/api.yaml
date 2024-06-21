@@ -1,0 +1,70 @@
+openapi: "3.0.0"
+
+info:
+  title: TODOs API
+  version: 0.1.0
+
+servers:
+  - url: https://{host}/api/v1/
+    variables:
+      host:
+        default: localhost:8080    # development server
+    description: The TODOs API server
+
+paths:
+  /todos:
+    get:
+      tags:
+        - ToDo
+      operationId: getToDos
+      responses:
+        '200':
+          description: ToDos retrieved
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ToDo'
+        '400':
+          description: The request sent was not valid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestError'
+        '401':
+          description: Not Authorised
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestError'
+        '500':
+          description: Internal server error. Not able to fetch data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestError'
+
+components:
+  schemas:
+    ToDo:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+    RequestError:
+      type: object
+      properties:
+        status:
+          type: integer
+        code:
+          type: string
+        message:
+          type: string
