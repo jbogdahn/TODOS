@@ -41,6 +41,7 @@ public class ToDoService {
             entity.setDone(true);
             return repository.save(entity);
         } else {
+            log.error("Entity with id {} not found", id);
             throw new ToDoNotFoundException("The ToDo with id " + id + " does not exist");
         }
     }
