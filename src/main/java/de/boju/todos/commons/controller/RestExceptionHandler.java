@@ -50,9 +50,6 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         error.setStatus(status.value());
         log.error(String.valueOf(ex));
 
-        var response = ResponseEntity.status(status).body(error);
-        response.getHeaders().add(HttpHeaders.CONTENT_TYPE, "application/json");
-
-        return response;
+        return ResponseEntity.status(status).header(HttpHeaders.CONTENT_TYPE, "application/json").body(error);
     }
 }
