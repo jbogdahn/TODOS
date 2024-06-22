@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:todos-webapp": "node dist/todos-webapp/server/server.mjs"
+    "serve:ssr:todos-webapp": "node dist/todos-webapp/server/server.mjs",
+    "generate:api": "openapi-generator-cli batch --clean api/*.api.yaml"
   },
   "private": true,
   "dependencies": {

@@ -1,0 +1,6 @@
+skipValidateSpec: true
+generatorName: typescript-angular
+additionalProperties:
+  typescriptThreePlus: true
+  withInterfaces: true
+  supportsES6: true

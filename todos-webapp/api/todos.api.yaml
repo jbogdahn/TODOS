@@ -1,0 +1,3 @@
+'!include': 'shared.config.yaml'
+inputSpec: '../api/api.yaml'
+outputDir: './src/api-client/todos'
