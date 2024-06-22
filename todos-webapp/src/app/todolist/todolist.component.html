@@ -1,13 +1,14 @@
 <div class="list-group">
-  <a *ngFor="let todo of todos" href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+  <div *ngFor="let todo of todos" class="list-group-item list-group-item-action flex-column align-items-start">
     <div class="d-flex justify-content-between">
       <h5 class="list-group-item-heading">{{ todo.title }}</h5>
       <small>{{ todo.category }}</small>
     </div>
     <div class="d-flex justify-content-between">
       <p class="list-group-item-text">{{ todo.description }}</p>
-      <small class="badge" *ngIf="todo.done">Done</small>
+      <small *ngIf="todo.done">Done</small>
+      <button *ngIf="!todo.done" class="btn btn-dark" (click)="setDone(todo.id)">Finish</button>
     </div>
-  </a>
+  </div>
 </div>
 

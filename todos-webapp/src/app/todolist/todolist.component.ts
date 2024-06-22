@@ -27,7 +27,7 @@ export class TodolistComponent {
     this.todoService.getToDos().subscribe(todos => (this.todos = todos));
   }
 
-  onSelect(todo: ToDo) {
-
+  setDone(id: string | undefined): void {
+    this.todoService.setToDoDone(id ?? "").subscribe(todo => this.getTodos());
   }
 }

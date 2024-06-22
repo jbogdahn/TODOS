@@ -8,7 +8,7 @@ servers:
   - url: http://{host}/api/v1/
     variables:
       host:
-        default: localhost:8080    # development server
+        default: localhost:4200    # development server
     description: The TODOs API server
 
 paths:
