@@ -32,14 +32,99 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RequestError'
-        '401':
-          description: Not Authorised
+        '500':
+          description: Internal server error. Not able to fetch data
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/RequestError'
-        '403':
-          description: Forbidden
+    post:
+      tags:
+        - ToDo
+      operationId: createTodo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ToDo'
+      responses:
+        '201':
+          description: ToDo is created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ToDo'
+        '400':
+          description: The request sent was not valid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestError'
+        '500':
+          description: Internal server error. Not able to fetch data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestError'
+  /todos/category/{category}:
+    get:
+      tags:
+        - ToDo
+      operationId: getToDosByCategory
+      parameters:
+        - in: path
+          name: category
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: ToDos retrieved
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ToDo'
+        '400':
+          description: The request sent was not valid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestError'
+        '500':
+          description: Internal server error. Not able to fetch data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestError'
+  /todos/{id}/done:
+    patch:
+      tags:
+        - ToDo
+      operationId: setToDoDone
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: ToDo is done
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ToDo'
+        '404':
+          description: The ToDo was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestError'
+        '400':
+          description: The request sent was not valid
           content:
             application/json:
               schema:
@@ -55,10 +140,26 @@ components:
   schemas:
     ToDo:
       type: object
+      required:
+        - title
+        - category
+        - done
       properties:
         id:
-          type: integer
-          format: int64
+          type: string
+          format: uuid
+        title:
+          type: string
+          maxLength: 250
+        category:
+          type: string
+          maxLength: 100
+        description:
+          type: string
+          maxLength: 750
+        done:
+          type: boolean
+
     RequestError:
       type: object
       properties:
