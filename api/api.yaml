@@ -5,7 +5,7 @@ info:
   version: 0.1.0
 
 servers:
-  - url: https://{host}/api/v1/
+  - url: http://{host}/api/v1/
     variables:
       host:
         default: localhost:8080    # development server
