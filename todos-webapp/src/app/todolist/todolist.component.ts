@@ -27,6 +27,10 @@ export class TodolistComponent {
     this.todoService.getToDos().subscribe(todos => (this.todos = todos));
   }
 
+  getByCategory(category: string) {
+    this.todoService.getToDosByCategory(category).subscribe(todos => this.todos = todos);
+  }
+
   setDone(id: string | undefined): void {
     this.todoService.setToDoDone(id ?? "").subscribe(todo => this.getTodos());
   }

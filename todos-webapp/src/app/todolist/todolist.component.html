@@ -2,7 +2,7 @@
   <div *ngFor="let todo of todos" class="list-group-item list-group-item-action flex-column align-items-start">
     <div class="d-flex justify-content-between">
       <h5 class="list-group-item-heading">{{ todo.title }}</h5>
-      <small>{{ todo.category }}</small>
+      <a href="#" (click)="getByCategory(todo.category)">{{ todo.category }}</a>
     </div>
     <div class="d-flex justify-content-between">
       <p class="list-group-item-text">{{ todo.description }}</p>

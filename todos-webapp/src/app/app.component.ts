@@ -11,4 +11,8 @@ import {TodolistComponent} from "./todolist/todolist.component";
 })
 export class AppComponent {
   title = 'todos-webapp';
+
+  getAllToDos(): void {
+    location.reload();
+  }
 }
