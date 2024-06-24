@@ -1,15 +1,18 @@
-<div class="modal-header">
-  <h4 class="modal-title" id="modal-basic-title">Simple modal</h4>
-</div>
-<!--
+<div class="modal-header d-flex justify-content-between">
+  <h4 class="modal-title" id="modal-basic-title">New ToDo</h4>
   <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
     <span aria-hidden="true">&times;</span>
   </button>
-</div>-->
+</div>
+
 <div class="modal-body">
-  <input [(ngModel)]="todo.title" type="text">
-  <input [(ngModel)]="todo.category" type="text">
-  <input [(ngModel)]="todo.description" type="text">
-  <button (click)="passBack()" type="submit" class="btn btn-primary w-100">Pass back</button>
+  <div class="d-flex justify-content-between">
+    <span>Title: </span><input [(ngModel)]="todo.title" type="text">
+    <span>Category: </span><input [(ngModel)]="todo.category" type="text">
+  </div>
+  <div class="d-flex justify-content-left">
+    <span>Description: </span><input [(ngModel)]="todo.description" type="text" width="100%">
+  </div>
+  <button (click)="passBack()" type="submit" class="btn btn-primary w-100">Create</button>
 </div>
 

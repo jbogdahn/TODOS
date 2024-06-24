@@ -1,6 +1,7 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component} from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import {NewToDo} from "../../api-client/todos";
+import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-new-to-do-modal',
@@ -13,10 +14,12 @@ import {NewToDo} from "../../api-client/todos";
 })
 export class NewToDoModalComponent {
 
+  constructor(public activeModal: NgbActiveModal) {
+  }
+
   todo: NewToDo = {title: "", category: "", description: ""}
-  @Output() passEntry: EventEmitter<any> = new EventEmitter();
 
   passBack(): void {
-    this.passEntry.emit(this.todo);
+    this.activeModal.close(this.todo);
   }
 }

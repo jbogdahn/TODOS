@@ -24,9 +24,13 @@ export class AppComponent {
 
   openNewTodoModal() {
     const modalRef = this.modalService.open(NewToDoModalComponent);
-    modalRef.componentInstance.passEntry.subscribe((newTodo: NewToDo) => {
-      console.log(newTodo)
-      this.createTodo(newTodo)
+    modalRef.result.then((result: NewToDo) => {
+      if (result) {
+        console.log(result)
+        if (result.title != "" || result.category != "") {
+          this.createTodo(result)
+        }
+      }
     });
   }
 
