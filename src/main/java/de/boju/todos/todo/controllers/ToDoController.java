@@ -2,6 +2,7 @@ package de.boju.todos.todo.controllers;
 
 import de.boju.todos.api.TodosApi;
 import de.boju.todos.commons.controller.BaseController;
+import de.boju.todos.model.NewToDoDto;
 import de.boju.todos.model.ToDoDto;
 import de.boju.todos.todo.entities.ToDoEntity;
 import de.boju.todos.todo.mappers.ToDoMapper;
@@ -36,7 +37,7 @@ public class ToDoController extends BaseController implements TodosApi {
     }
 
     @Override
-    public ResponseEntity<ToDoDto> createTodo(ToDoDto toDoDto) {
+    public ResponseEntity<ToDoDto> createTodo(NewToDoDto toDoDto) {
         log.info("Retrieved CreateTodo request");
         var createdEntity = toDoService.createToDo(mapper.toEntity(toDoDto));
         return ResponseEntity.status(201).body(mapper.toDto(createdEntity));

@@ -47,7 +47,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ToDo'
+              $ref: '#/components/schemas/NewToDo'
       responses:
         '201':
           description: ToDo is created
@@ -141,6 +141,7 @@ components:
     ToDo:
       type: object
       required:
+        - id
         - title
         - category
         - done
@@ -159,6 +160,22 @@ components:
           maxLength: 750
         done:
           type: boolean
+
+    NewToDo:
+      type: object
+      required:
+        - title
+        - category
+      properties:
+        title:
+          type: string
+          maxLength: 250
+        category:
+          type: string
+          maxLength: 100
+        description:
+          type: string
+          maxLength: 750
 
     RequestError:
       type: object
