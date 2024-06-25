@@ -50,6 +50,7 @@ Very simple use cases:
 ## Roadmap
 
 - Improve FE design
+- add tests for backend
 - ...
 
 ## License
