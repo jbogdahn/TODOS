@@ -4,9 +4,9 @@ create table public.todo
         constraint todo_pk
             primary key,
     version     bigint,
-    title       varchar,
-    category    varchar,
-    description varchar,
+    title       varchar(250),
+    category    varchar(100),
+    description varchar(750),
     done        boolean
 );
 
