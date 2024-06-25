@@ -1,95 +1,98 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '3.3.1'
-	id 'io.spring.dependency-management' version '1.1.5'
-	id 'org.openapi.generator' version '7.5.0'
+    id 'java'
+    id 'org.springframework.boot' version '3.3.1'
+    id 'io.spring.dependency-management' version '1.1.5'
+    id 'org.openapi.generator' version '7.5.0'
 }
 
 group = 'de.boju'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(17)
-	}
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
 }
 
 springBoot {
-	buildInfo()
+    buildInfo()
 }
 
 configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
 }
 
 ext {
-	mapstructVersion = "1.5.3.Final"
-	lombokVersion = "1.18.24"
-	lombokMapstructBindingVersion = "0.2.0"
+    mapstructVersion = "1.5.3.Final"
+    lombokVersion = "1.18.24"
+    lombokMapstructBindingVersion = "0.2.0"
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-actuator'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
-	implementation 'org.openapitools:jackson-databind-nullable:0.2.4'
-	implementation 'io.swagger.core.v3:swagger-annotations:2.2.10'
-	implementation 'io.swagger:swagger-annotations:1.6.8'
-	implementation "org.mapstruct:mapstruct:${mapstructVersion}", "org.projectlombok:lombok:${lombokVersion}"
-	runtimeOnly 'org.postgresql:postgresql'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
+    implementation 'org.openapitools:jackson-databind-nullable:0.2.4'
+    implementation 'io.swagger.core.v3:swagger-annotations:2.2.10'
+    implementation 'io.swagger:swagger-annotations:1.6.8'
+    implementation "org.mapstruct:mapstruct:${mapstructVersion}", "org.projectlombok:lombok:${lombokVersion}"
+    runtimeOnly 'org.postgresql:postgresql'
 
-	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
-	annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}", "org.projectlombok:lombok:${lombokVersion}", "org.projectlombok:lombok-mapstruct-binding:${lombokMapstructBindingVersion}"
-	annotationProcessor 'org.projectlombok:lombok'
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}", "org.projectlombok:lombok:${lombokVersion}", "org.projectlombok:lombok-mapstruct-binding:${lombokMapstructBindingVersion}"
+    annotationProcessor 'org.projectlombok:lombok'
 
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'com.h2database:h2'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'io.rest-assured:rest-assured:5.4.0'
+    testImplementation 'io.rest-assured:json-schema-validator:5.4.0'
+    testImplementation 'io.rest-assured:spring-mock-mvc:5.4.0'
+    testImplementation 'com.h2database:h2'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 //additional source sets
 sourceSets.main.java.srcDirs += "$buildDir/generated/src/main/java"
 
 openApiGenerate {
-	generatorName = "spring"
-	library = "spring-boot"
-	modelNameSuffix = "Dto"
-	inputSpec.set("$rootDir/api/api.yaml")
-	outputDir.set("$buildDir/generated")
-	apiPackage.set("de.boju.todos.api")
-	modelPackage.set("de.boju.todos.model")
-	configOptions.set([
-			dateLibrary          : "java8",
-			interfaceOnly        : "true",
-			swaggerDocketConfig  : "false",
-			enablePostProcessFile: "true",
-			basePackage          : "de.boju",
-			configPackage        : "de.boju.configuration",
-			apiTests             : "false",
-			modelTest            : "false",
-			useSpringBoot3       : "true"
-	])
+    generatorName = "spring"
+    library = "spring-boot"
+    modelNameSuffix = "Dto"
+    inputSpec.set("$rootDir/api/api.yaml")
+    outputDir.set("$buildDir/generated")
+    apiPackage.set("de.boju.todos.api")
+    modelPackage.set("de.boju.todos.model")
+    configOptions.set([
+            dateLibrary          : "java8",
+            interfaceOnly        : "true",
+            swaggerDocketConfig  : "false",
+            enablePostProcessFile: "true",
+            basePackage          : "de.boju",
+            configPackage        : "de.boju.configuration",
+            apiTests             : "false",
+            modelTest            : "false",
+            useSpringBoot3       : "true"
+    ])
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }
 
 tasks.withType(JavaCompile).configureEach {
-	options.encoding = "UTF-8"
-	options.compilerArgs += [
-			"-Amapstruct.defaultInjectionStrategy=constructor",
-			"-Amapstruct.defaultComponentModel=spring",
-			"-Amapstruct.unmappedTargetPolicy=WARN"
-	]
+    options.encoding = "UTF-8"
+    options.compilerArgs += [
+            "-Amapstruct.defaultInjectionStrategy=constructor",
+            "-Amapstruct.defaultComponentModel=spring",
+            "-Amapstruct.unmappedTargetPolicy=WARN"
+    ]
 }
 
 compileJava.dependsOn tasks.named("openApiGenerate")
